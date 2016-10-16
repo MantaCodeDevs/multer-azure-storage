@@ -11,6 +11,8 @@ const blobName = (file) => {
     return name
 }
 
+const defaultSecurity = 'blob'
+
 class MulterAzureStorage {
 
     constructor (opts) {
@@ -28,7 +30,9 @@ class MulterAzureStorage {
             opts.azureStorageAccessKey,
             opts.azureStorageConnectionString)
 
-        this.blobService.createContainerIfNotExists(this.containerName, { publicAccessLevel : 'blob' }, (err, result, response) => {
+        let security = opts.containerSecurity || defaultSecurity
+
+        this.blobService.createContainerIfNotExists(this.containerName, { publicAccessLevel : security }, (err, result, response) => {
             if (err) {
                 this.containerError = true
                 throw new Error('Cannot use container. Check if provided options are correct.')
@@ -95,6 +99,7 @@ class MulterAzureStorage {
  * @param {string}      [opts.azureStorageAccessKey]
  * @param {string}      [opts.azureStorageAccount]
  * @param {string}      [opts.containerName]
+ * @param {string}      [opts.containerSecurity]                'blob' or 'container', default: blob
  */
 module.exports = function (opts) {
     return new MulterAzureStorage(opts)
