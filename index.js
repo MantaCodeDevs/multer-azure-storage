@@ -19,11 +19,17 @@ class MulterAzureStorage {
         this.containerCreated = false
         this.containerError = false
 
-        if (!opts.azureStorageConnectionString || !opts.azureStorageAccessKey || !opts.azureStorageAccount) {
-            throw new Error('Missing options')
+        let missingParameters = []
+        if (!opts.azureStorageConnectionString) missingParameters.push("azureStorageConnectionString")
+        if (!opts.azureStorageAccessKey) missingParameters.push("azureStorageAccessKey")
+        if (!opts.azureStorageAccount) missingParameters.push("azureStorageAccount")
+        if (!opts.containerName) missingParameters.push("containerName")
+
+        if (missingParameters.length > 0) {
+          throw new Error('Missing required parameter' + (missingParameters.length > 1 ? 's' : '') + ' from the options of MulterAzureStorage: ' + missingParameters.join(', '))
         }
 
-        this.containerName = opts.containerName || uuid.v4()
+        this.containerName = opts.containerName
 
         this.blobService = azure.createBlobService(
             opts.azureStorageAccount,
