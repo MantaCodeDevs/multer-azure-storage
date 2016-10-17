@@ -69,7 +69,7 @@ class MulterAzureStorage {
                 const url = this.blobService.getUrl(this.containerName, blob)
                 cb(null, {
                     container: result.container,
-                    blob: result.blob,
+                    blob: blob,
                     blobType: result.blobType,
                     size: result.contentLength,
                     etag: result.etag,
