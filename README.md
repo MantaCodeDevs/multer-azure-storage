@@ -25,9 +25,10 @@ Then use `upload` as described in [multer documentation](https://github.com/expr
 
 ### File information
 
-Each file added using Multer Azure Storage contains the following information
+Each file added using Multer Azure Storage contains the following information:
+
 Key | Description | Note
---- | --- | ---
+---|---|---
 `fieldname` | Field name specified in the form | added by multer
 `originalname` | Name of the file on the user's computer | added by multer
 `encoding` | Encoding type of the file | aded by multer
