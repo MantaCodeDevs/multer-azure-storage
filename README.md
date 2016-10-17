@@ -14,7 +14,7 @@ TODO
 | containerName | string | 'photos' |
 | containerSecurity | string (optional) | 'blob' or 'container', defaults to blob |
 
-For more information about the meaning of individual paramters please check [Azure documentation](https://azure.microsoft.com/en-us/documentation/articles/storage-nodejs-how-to-use-blob-storage/) on node.js integration.
+For more information about the meaning of individual parameters please check [Azure documentation](https://azure.microsoft.com/en-us/documentation/articles/storage-nodejs-how-to-use-blob-storage/) on node.js integration.
 
 ## Tests
 Not implemented yet
