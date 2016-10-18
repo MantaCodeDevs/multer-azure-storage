@@ -3,7 +3,10 @@
 Multer Azure Storage provides a Storage for [multer](https://github.com/expressjs/multer) allowing for saving data to Blob Storage.
 
 ## Installation
-TODO
+
+```
+npm install multer-azure-storage
+```
 
 ## Usage
 Basic usage example:
