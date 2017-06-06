@@ -108,7 +108,7 @@ class MulterAzureStorage {
  * @param {string}      [opts.azureStorageAccount]
  * @param {string}      [opts.containerName]
  * @param {string}      [opts.containerSecurity]                'blob' or 'container', default: blob
- * @param {function}    [opts.filename]     function that given a file will return the name to be used as the file's name
+ * @param {function}    [opts.fileName]     function that given a file will return the name to be used as the file's name
  */
 module.exports = function (opts) {
     return new MulterAzureStorage(opts)
