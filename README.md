@@ -52,7 +52,7 @@ Key | Description | Note
 | `azureStorageAccount` | string | 'mystorageaccount' |
 | `containerName` | string | 'photos' |
 | `containerSecurity` | string (optional) | 'blob' or 'container', defaults to blob |
-| `fileName` | function (optional) | function that recieves a file reference and allows customation of the file name |
+| `fileName` | function (optional) | function that receives a file reference and allows customization of the file name |
 
 For more information about the meaning of individual parameters please check [Azure documentation](https://azure.microsoft.com/en-us/documentation/articles/storage-nodejs-how-to-use-blob-storage/) on node.js integration.
 
