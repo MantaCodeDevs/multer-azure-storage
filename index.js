@@ -31,6 +31,8 @@ class MulterAzureStorage {
 
         this.containerName = opts.containerName
 
+        this.fileName = opts.fileName
+
         this.blobService = azure.createBlobService(
             opts.azureStorageAccount,
             opts.azureStorageAccessKey,
@@ -61,7 +63,7 @@ class MulterAzureStorage {
             return
         }
 
-        const blob = blobName(file)
+        const blob = (typeof this.fileName !== 'function')? blobName(file): this.fileName(file)
         file.stream.pipe(this.blobService.createWriteStreamToBlockBlob(this.containerName, blob, (err, azureBlob) => {
             if (err) {
                 return cb(err)
@@ -106,6 +108,7 @@ class MulterAzureStorage {
  * @param {string}      [opts.azureStorageAccount]
  * @param {string}      [opts.containerName]
  * @param {string}      [opts.containerSecurity]                'blob' or 'container', default: blob
+ * @param {function}    [opts.filename]     function that given a file will return the name to be used as the file's name
  */
 module.exports = function (opts) {
     return new MulterAzureStorage(opts)
