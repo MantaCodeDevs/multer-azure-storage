@@ -64,7 +64,14 @@ class MulterAzureStorage {
         }
 
         const blob = (typeof this.fileName !== 'function')? blobName(file): this.fileName(file)
-        file.stream.pipe(this.blobService.createWriteStreamToBlockBlob(this.containerName, blob, (err, azureBlob) => {
+        file.stream.pipe(this.blobService.createWriteStreamToBlockBlob(
+          this.containerName,
+          blob,
+          /* options - see https://azure.github.io/azure-storage-node/BlobService.html#createWriteStreamToBlockBlob__anchor */
+          {
+              contentSettings: {contentType: file.mimetype}
+          },
+          (err, azureBlob) => {
             if (err) {
                 return cb(err)
             }
