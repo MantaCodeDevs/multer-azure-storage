@@ -1,7 +1,7 @@
 {
   "name": "multer-azure-storage",
   "description": "Azure storage for multer",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "contributors": [
     "Michal Iwanow <michal.iwanow@mantacode.com>",
     "Akos Orban <akos.orban@mantacode.com>"
