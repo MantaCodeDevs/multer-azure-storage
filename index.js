@@ -19,11 +19,20 @@ class MulterAzureStorage {
         this.containerCreated = false
         this.containerError = false
 
+        let azureUseConnectionString
+
         let missingParameters = []
-        if (!opts.azureStorageConnectionString) missingParameters.push("azureStorageConnectionString")
-        if (!opts.azureStorageAccessKey) missingParameters.push("azureStorageAccessKey")
-        if (!opts.azureStorageAccount) missingParameters.push("azureStorageAccount")
+
+        if (!opts.azureStorageConnectionString) {
+            azureUseConnectionString = false;
+            if (!opts.azureStorageAccessKey) missingParameters.push("azureStorageAccessKey")
+            if (!opts.azureStorageAccount) missingParameters.push("azureStorageAccount")
+        } else {
+            azureUseConnectionString = true;
+        }
+
         if (!opts.containerName) missingParameters.push("containerName")
+
 
         if (missingParameters.length > 0) {
           throw new Error('Missing required parameter' + (missingParameters.length > 1 ? 's' : '') + ' from the options of MulterAzureStorage: ' + missingParameters.join(', '))
@@ -33,10 +42,13 @@ class MulterAzureStorage {
 
         this.fileName = opts.fileName
 
-        this.blobService = azure.createBlobService(
-            opts.azureStorageAccount,
-            opts.azureStorageAccessKey,
-            opts.azureStorageConnectionString)
+        if(azureUseConnectionString){
+            this.blobService = azure.createBlobService(opts.azureStorageConnectionString)
+        } else {
+            this.blobService = azure.createBlobService(
+                opts.azureStorageAccount,
+                opts.azureStorageAccessKey)
+        }
 
         let security = opts.containerSecurity || defaultSecurity
 
