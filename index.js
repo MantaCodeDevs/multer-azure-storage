@@ -72,7 +72,6 @@ class MulterAzureStorage {
         }
 
         const blob = (!this.fileName)? blobName(file): this.fileName
-        console.log(blob);
         file.stream.pipe(this.blobService.createWriteStreamToBlockBlob(
           this.containerName,
           blob,
@@ -91,7 +90,6 @@ class MulterAzureStorage {
                 }
 
                 const url = this.blobService.getUrl(this.containerName, blob)
-                console.log(url);
                 cb(null, {
                     container: result.container,
                     blob: blob,
