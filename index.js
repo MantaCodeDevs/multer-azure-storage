@@ -75,7 +75,7 @@ class MulterAzureStorage {
             return
         }
 
-        const blob = (typeof this.fileName !== 'function')? blobName(file): this.fileName(file)
+        const blob = (typeof this.fileName !== 'function')? blobName(file): this.fileName(file, req)
         file.stream.pipe(this.blobService.createWriteStreamToBlockBlob(
           this.containerName,
           blob,
