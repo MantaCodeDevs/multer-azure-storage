@@ -52,17 +52,25 @@ class MulterAzureStorage {
 
         let security = opts.containerSecurity || defaultSecurity
 
-        this.blobService.createContainerIfNotExists(this.containerName, { publicAccessLevel : security }, (err, result, response) => {
-            if (err) {
-                this.containerError = true
-                throw new Error('Cannot use container. Check if provided options are correct.')
-            }
-
+        if(!opts.dontCreateContainer)
+        {
+            this.blobService.createContainerIfNotExists(this.containerName, { publicAccessLevel : security }, (err, result, response) => {
+                if (err) {
+                    this.containerError = true
+                    throw new Error('Cannot use container. Check if provided options are correct.')
+                }
+    
+                this.containerCreated = true
+    
+                _requestsQueue.forEach(i => this._removeFile(i.req, i.file, i.cb))
+                _requestsQueue = []
+            })
+        }
+        else{
             this.containerCreated = true
+        }
 
-            _requestsQueue.forEach(i => this._removeFile(i.req, i.file, i.cb))
-            _requestsQueue = []
-        })
+        
     }
 
     _handleFile(req, file, cb) {
@@ -75,7 +83,7 @@ class MulterAzureStorage {
             return
         }
 
-        const blob = (typeof this.fileName !== 'function')? blobName(file): this.fileName(file)
+        const blob = (!this.fileName)? blobName(file): this.fileName
         file.stream.pipe(this.blobService.createWriteStreamToBlockBlob(
           this.containerName,
           blob,
