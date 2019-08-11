@@ -101,6 +101,8 @@ class MulterAzureStorage {
                     size: result.contentLength,
                     etag: result.etag,
                     metadata: result.metadata,
+                    contentMD5: result.contentSettings ? result.contentSettings.contentMD5 : null,
+                    contentType: result.contentSettings ? result.contentSettings.contentType: null,   
                     url: url
                 })
             })
